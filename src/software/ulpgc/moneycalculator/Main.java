@@ -10,5 +10,9 @@ public class Main {
         for (Currency currency : currencies) {
             System.out.println(currency);
         }
+        List<ExchangeRate> exchangeRates = TsvFileExchangeRateLoader.with(new File("exchangerates.tsv")).load();
+        for (ExchangeRate exchangeRate : exchangeRates) {
+            System.out.println(exchangeRate);
+        }
     }
 }

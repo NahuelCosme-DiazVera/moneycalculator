@@ -1,4 +1,6 @@
-package software.ulpgc.moneycalculator;
+package software.ulpgc.moneycalculator.tsvfileloader;
+
+import software.ulpgc.moneycalculator.*;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -7,7 +9,7 @@ import java.util.List;
 
 import static java.lang.Double.parseDouble;
 
-public class TsvFileExchangeRateLoader implements ExchangeRateLoader{
+public class TsvFileExchangeRateLoader implements ExchangeRateLoader {
     private File file;
 
     private TsvFileExchangeRateLoader(File file) {

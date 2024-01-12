@@ -1,10 +1,12 @@
-package software.ulpgc.moneycalculator;
+package software.ulpgc.moneycalculator.tsvfileloader;
+
+import software.ulpgc.moneycalculator.*;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TsvFileCurrencyLoader implements CurrencyLoader{
+public class TsvFileCurrencyLoader implements CurrencyLoader {
     private final File file;
 
     public TsvFileCurrencyLoader(File file) {

@@ -1,5 +1,7 @@
 package software.ulpgc.moneycalculator;
 
+import java.util.Objects;
+
 public class Currency {
     private final String code;
     private final String name;

@@ -4,8 +4,6 @@ import software.ulpgc.moneycalculator.*;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 public class ExchangeCommand implements Command{
     private final MoneyDialog moneyDialog;
     private final CurrencyDialog currencyDialog;
@@ -24,11 +22,22 @@ public class ExchangeCommand implements Command{
         Money money = moneyDialog.get();
         Currency target = currencyDialog.get();
         List<ExchangeRate> exchangeRates = exchangeRateLoader.load();
-        ExchangeRate rate = exchangeRates.stream()
-                .filter(exchangeRate -> exchangeRate.getTo().getCode().equalsIgnoreCase(target.getCode()))
-                .findFirst()
-                .orElse(null);
-        Money result = new Money(money.getAmount() * rate.getRate(), target);
+        ExchangeRate rate = targetCodeIsNotUSD(target) ?
+                exchangeRates.stream()
+                        .filter(exchangeRate -> exchangeRate.getTo().getCode().equalsIgnoreCase(target.getCode()))
+                        .findFirst()
+                        .orElse(null) :
+                exchangeRates.stream()
+                        .filter(exchangeRate -> exchangeRate.getFrom().getCode().equalsIgnoreCase(money.getCurrency().getCode()))
+                        .findFirst()
+                        .orElse(null);
+        Money result = new Money(targetCodeIsNotUSD(target) ?
+                money.getAmount() * rate.getRate() :
+                money.getAmount() * 1/rate.getRate(), target);
         moneyDisplay.show(result);
+    }
+
+    private static boolean targetCodeIsNotUSD(Currency target) {
+        return !target.getCode().equalsIgnoreCase("USD");
     }
 }

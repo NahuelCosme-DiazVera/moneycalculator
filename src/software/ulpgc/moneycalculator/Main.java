@@ -1,5 +1,7 @@
 package software.ulpgc.moneycalculator;
 
+import software.ulpgc.moneycalculator.cli.CliCurrencyDialog;
+import software.ulpgc.moneycalculator.cli.CliMoneyDialog;
 import software.ulpgc.moneycalculator.control.ExchangeCommand;
 import software.ulpgc.moneycalculator.mock.MockCurrencyDialog;
 import software.ulpgc.moneycalculator.mock.MockMoneyDialog;
@@ -13,10 +15,10 @@ public class Main {
     public static void main(String[] args) {
         CurrencyLoader currencyLoader = new TsvFileCurrencyLoader(new File("currencies.tsv"));
         List<Currency> currencies = currencyLoader.load();
-        MoneyDialog moneyDialog = new MockMoneyDialog().define(currencies);
-        CurrencyDialog currencyDialog = new MockCurrencyDialog().define(currencies);
+        MoneyDialog moneyDialog = new CliMoneyDialog().define(currencies);
+        CurrencyDialog currencyDialog = new CliCurrencyDialog().define(currencies);
         MoneyDisplay moneyDisplay = new MockMoneyDisplay();
-        TsvFileExchangeRateLoader exchangeRatesLoader = TsvFileExchangeRateLoader.with(new File("exchangerates.tsv"));
+        TsvFileExchangeRateLoader exchangeRatesLoader = TsvFileExchangeRateLoader.with(new File("dollarexchangerates.tsv"));
         ExchangeCommand exchangeCommand = new ExchangeCommand(moneyDialog, currencyDialog, exchangeRatesLoader, moneyDisplay);
         exchangeCommand.execute();
     }

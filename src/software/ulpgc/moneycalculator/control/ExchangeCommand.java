@@ -24,7 +24,11 @@ public class ExchangeCommand implements Command{
         Money money = moneyDialog.get();
         Currency target = currencyDialog.get();
         List<ExchangeRate> exchangeRates = exchangeRateLoader.load();
-        Money result = new Money(money.getAmount() * exchangeRates.get(0).getRate(), target);
+        ExchangeRate rate = exchangeRates.stream()
+                .filter(exchangeRate -> exchangeRate.getTo().getCode().equalsIgnoreCase(target.getCode()))
+                .findFirst()
+                .orElse(null);
+        Money result = new Money(money.getAmount() * rate.getRate(), target);
         moneyDisplay.show(result);
     }
 }

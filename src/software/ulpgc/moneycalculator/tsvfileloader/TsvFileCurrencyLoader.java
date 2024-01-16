@@ -9,8 +9,12 @@ import java.util.List;
 public class TsvFileCurrencyLoader implements CurrencyLoader {
     private final File file;
 
-    public TsvFileCurrencyLoader(File file) {
+    private TsvFileCurrencyLoader(File file) {
         this.file = file;
+    }
+
+    public static TsvFileCurrencyLoader with(File file) {
+        return new TsvFileCurrencyLoader(file);
     }
 
     @Override

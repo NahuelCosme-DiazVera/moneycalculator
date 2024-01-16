@@ -10,7 +10,7 @@ import java.util.List;
 public class MainSwing {
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
-        CurrencyLoader currencyLoader = new TsvFileCurrencyLoader(new File("currencies.tsv"));
+        CurrencyLoader currencyLoader = TsvFileCurrencyLoader.with(new File("currencies.tsv"));
         List<Currency> currencies = currencyLoader.load();
         ExchangeRateLoader exchangeRateLoader = TsvFileExchangeRateLoader.with(new File("dollarexchangerates.tsv"));
         MoneyDialog moneyDialog = frame.getMoneyDialog().define(currencies);

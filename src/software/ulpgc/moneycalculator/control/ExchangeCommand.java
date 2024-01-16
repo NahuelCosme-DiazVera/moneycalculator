@@ -23,18 +23,34 @@ public class ExchangeCommand implements Command{
         Currency target = currencyDialog.get();
         List<ExchangeRate> exchangeRates = exchangeRateLoader.load();
         ExchangeRate rate = targetCodeIsNotUSD(target) ?
-                exchangeRates.stream()
-                        .filter(exchangeRate -> exchangeRate.getTo().getCode().equalsIgnoreCase(target.getCode()))
-                        .findFirst()
-                        .orElse(null) :
-                exchangeRates.stream()
-                        .filter(exchangeRate -> exchangeRate.getTo().getCode().equalsIgnoreCase(money.getCurrency().getCode()))
-                        .findFirst()
-                        .orElse(null);
+                findTargetExchangeRate(target, exchangeRates) :
+                findSourceExchangeRate(money, exchangeRates);
         Money result = new Money(targetCodeIsNotUSD(target) ?
-                money.getAmount() * rate.getRate() :
-                money.getAmount() * 1/rate.getRate(), target);
+                getAmountFromDollarToCurrency(money, rate.getRate()) :
+                getAmountFromCurrencyToDollar(money, rate), target);
         moneyDisplay.show(result);
+    }
+
+    private static double getAmountFromCurrencyToDollar(Money money, ExchangeRate rate) {
+        return money.getAmount() * 1 / rate.getRate();
+    }
+
+    private static double getAmountFromDollarToCurrency(Money money, double rate) {
+        return money.getAmount() * rate;
+    }
+
+    private static ExchangeRate findSourceExchangeRate(Money money, List<ExchangeRate> exchangeRates) {
+        return exchangeRates.stream()
+                .filter(exchangeRate -> exchangeRate.getTo().getCode().equalsIgnoreCase(money.getCurrency().getCode()))
+                .findFirst()
+                .orElse(null);
+    }
+
+    private static ExchangeRate findTargetExchangeRate(Currency target, List<ExchangeRate> exchangeRates) {
+        return exchangeRates.stream()
+                .filter(exchangeRate -> exchangeRate.getTo().getCode().equalsIgnoreCase(target.getCode()))
+                .findFirst()
+                .orElse(null);
     }
 
     private static boolean targetCodeIsNotUSD(Currency target) {

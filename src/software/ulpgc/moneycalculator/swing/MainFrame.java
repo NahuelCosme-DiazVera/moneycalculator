@@ -1,6 +1,5 @@
 package software.ulpgc.moneycalculator.swing;
 
-import software.ulpgc.moneycalculator.CurrencyDialog;
 import software.ulpgc.moneycalculator.control.Command;
 
 import javax.swing.*;
@@ -15,7 +14,7 @@ public class MainFrame extends JFrame {
     private Map<String, Command> commands = new HashMap<>();
 
     public MainFrame() throws HeadlessException {
-        this.setTitle("Money Calculator");
+        this.setTitle("Dollar Money Calculator");
         this.setSize(1200, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);

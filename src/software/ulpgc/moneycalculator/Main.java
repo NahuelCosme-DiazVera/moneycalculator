@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        CurrencyLoader currencyLoader = new TsvFileCurrencyLoader(new File("currencies.tsv"));
+        CurrencyLoader currencyLoader = TsvFileCurrencyLoader.with(new File("currencies.tsv"));
         List<Currency> currencies = currencyLoader.load();
         MoneyDialog moneyDialog = new CliMoneyDialog().define(currencies);
         CurrencyDialog currencyDialog = new CliCurrencyDialog().define(currencies);

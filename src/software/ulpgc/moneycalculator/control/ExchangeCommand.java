@@ -28,7 +28,7 @@ public class ExchangeCommand implements Command{
                         .findFirst()
                         .orElse(null) :
                 exchangeRates.stream()
-                        .filter(exchangeRate -> exchangeRate.getFrom().getCode().equalsIgnoreCase(money.getCurrency().getCode()))
+                        .filter(exchangeRate -> exchangeRate.getTo().getCode().equalsIgnoreCase(money.getCurrency().getCode()))
                         .findFirst()
                         .orElse(null);
         Money result = new Money(targetCodeIsNotUSD(target) ?

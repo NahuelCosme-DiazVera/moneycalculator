@@ -1,11 +1,8 @@
 package software.ulpgc.moneycalculator;
 
-import software.ulpgc.moneycalculator.cli.CliCurrencyDialog;
-import software.ulpgc.moneycalculator.cli.CliMoneyDialog;
+import software.ulpgc.moneycalculator.cli.*;
 import software.ulpgc.moneycalculator.control.ExchangeCommand;
-import software.ulpgc.moneycalculator.mock.MockCurrencyDialog;
-import software.ulpgc.moneycalculator.mock.MockMoneyDialog;
-import software.ulpgc.moneycalculator.mock.MockMoneyDisplay;
+import software.ulpgc.moneycalculator.mock.*;
 import software.ulpgc.moneycalculator.tsvfileloader.*;
 
 import java.io.File;
